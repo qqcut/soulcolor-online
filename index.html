@@ -651,6 +651,7 @@
 
     function shareResult() {
       const colorName = document.getElementById('resultColorName').textContent;
+<<<<<<< HEAD
       const text = '我的灵魂颜色是「' + colorName + '」✨ 快来测测你的灵魂颜色！\nhttps://soulcolor.online';
       
       // 优先尝试微信内置浏览器分享
@@ -728,6 +729,27 @@
       toast.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,0.85);color:#fff;padding:16px 32px;border-radius:12px;font-size:15px;z-index:99999;';
       toast.textContent = '长按复制：https://soulcolor.online';
       toast.style.opacity = '1';
+=======
+      const text = `我的灵魂颜色是「${colorName}」✨ 快来测测你的灵魂颜色！`;
+      const url = 'https://soulcolor.online';
+      if (navigator.share) {
+        navigator.share({ title: '灵魂颜色测试', text, url }).catch(() => copyToClipboard(text + ' ' + url));
+      } else {
+        copyToClipboard(text + ' ' + url);
+      }
+    }
+
+    function copyToClipboard(text) {
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(() => alert('已复制到剪贴板，快去分享吧！'));
+      } else {
+        const ta = document.createElement('textarea');
+        ta.value = text; document.body.appendChild(ta);
+        ta.select(); document.execCommand('copy');
+        document.body.removeChild(ta);
+        alert('已复制到剪贴板，快去分享吧！');
+      }
+>>>>>>> 8d38deb (Add files via upload)
     }
 
     function restartTest() {
