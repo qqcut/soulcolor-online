@@ -1,0 +1,5 @@
+name = "soulcolor"
+pages_build_output_dir = "."
+
+[pages]
+project_name = "soulcolor"

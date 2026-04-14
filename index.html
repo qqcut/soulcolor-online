@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>灵魂颜色测试 | 你的灵魂是什么颜色？</title>
+  <meta name="description" content="通过10道心理测试题，发现你独特的灵魂颜色，揭示你的内在性格与命运。">
+  <meta property="og:title" content="灵魂颜色测试 | 你的灵魂是什么颜色？">
+  <meta property="og:description" content="通过10道心理测试题，发现你独特的灵魂颜色">
+  <meta property="og:image" content="https://soulcolor.online/og.png">
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4308687716218559" crossorigin="anonymous"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0015;
+      --card: rgba(255,255,255,0.06);
+      --border: rgba(255,255,255,0.12);
+      --text: #e8e0ff;
+      --muted: rgba(232,224,255,0.55);
+      --accent: #a855f7;
+      --accent2: #ec4899;
+    }
+
+    html, body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Stars background */
+    .stars {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(168,85,247,0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(236,72,153,0.12) 0%, transparent 50%),
+        radial-gradient(ellipse at 60% 80%, rgba(99,102,241,0.1) 0%, transparent 50%);
+    }
+    .stars::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,0.8) 0%, transparent 100%),
+        radial-gradient(1px 1px at 25% 35%, rgba(255,255,255,0.6) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 40% 10%, rgba(255,255,255,0.9) 0%, transparent 100%),
+        radial-gradient(1px 1px at 55% 60%, rgba(255,255,255,0.7) 0%, transparent 100%),
+        radial-gradient(1px 1px at 70% 25%, rgba(255,255,255,0.5) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 85% 45%, rgba(255,255,255,0.8) 0%, transparent 100%),
+        radial-gradient(1px 1px at 15% 70%, rgba(255,255,255,0.6) 0%, transparent 100%),
+        radial-gradient(1px 1px at 90% 80%, rgba(255,255,255,0.7) 0%, transparent 100%),
+        radial-gradient(1px 1px at 35% 85%, rgba(255,255,255,0.5) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 65% 90%, rgba(255,255,255,0.9) 0%, transparent 100%),
+        radial-gradient(1px 1px at 5% 50%, rgba(255,255,255,0.6) 0%, transparent 100%),
+        radial-gradient(1px 1px at 95% 15%, rgba(255,255,255,0.8) 0%, transparent 100%),
+        radial-gradient(1px 1px at 48% 48%, rgba(255,255,255,0.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 78% 68%, rgba(255,255,255,0.6) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 30% 55%, rgba(255,255,255,0.7) 0%, transparent 100%);
+    }
+
+    /* Ad bar */
+    .ad-bar {
+      position: relative; z-index: 10;
+      width: 100%; background: rgba(0,0,0,0.4);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      min-height: 60px; padding: 8px;
+      font-size: 12px; color: var(--muted);
+    }
+    .ad-bar.bottom {
+      border-bottom: none; border-top: 1px solid var(--border);
+      position: fixed; bottom: 0; left: 0; right: 0;
+    }
+    .ad-placeholder {
+      width: 100%; max-width: 728px; height: 60px;
+      background: rgba(255,255,255,0.03);
+      border: 1px dashed rgba(255,255,255,0.1);
+      border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; color: rgba(255,255,255,0.2);
+      letter-spacing: 1px;
+    }
+
+    /* Layout */
+    .container {
+      position: relative; z-index: 1;
+      max-width: 680px; margin: 0 auto;
+      padding: 0 16px 100px;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      padding: 40px 0 32px;
+    }
+    .header .emoji { font-size: 56px; display: block; margin-bottom: 16px; animation: float 3s ease-in-out infinite; }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+    .header h1 {
+      font-size: clamp(24px, 6vw, 36px);
+      font-weight: 800;
+      background: linear-gradient(135deg, #c084fc, #f472b6, #818cf8);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.2; margin-bottom: 12px;
+    }
+    .header p {
+      color: var(--muted); font-size: 15px; line-height: 1.6;
+    }
+
+    /* Progress */
+    .progress-wrap {
+      margin-bottom: 24px;
+    }
+    .progress-info {
+      display: flex; justify-content: space-between;
+      font-size: 13px; color: var(--muted); margin-bottom: 8px;
+    }
+    .progress-bar {
+      height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #a855f7, #ec4899);
+      border-radius: 2px;
+      transition: width 0.4s ease;
+    }
+
+    /* Question card */
+    .question-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px 24px;
+      margin-bottom: 20px;
+      backdrop-filter: blur(12px);
+      animation: fadeIn 0.4s ease;
+    }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+    .question-num {
+      font-size: 12px; color: var(--accent); font-weight: 600;
+      letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px;
+    }
+    .question-text {
+      font-size: clamp(16px, 4vw, 20px);
+      font-weight: 600; line-height: 1.5; margin-bottom: 24px;
+    }
+
+    /* Options */
+    .options { display: flex; flex-direction: column; gap: 12px; }
+    .option {
+      background: rgba(255,255,255,0.04);
+      border: 1.5px solid rgba(255,255,255,0.1);
+      border-radius: 14px;
+      padding: 14px 18px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex; align-items: center; gap: 12px;
+      font-size: 15px; line-height: 1.4;
+    }
+    .option:hover {
+      background: rgba(168,85,247,0.15);
+      border-color: rgba(168,85,247,0.5);
+      transform: translateX(4px);
+    }
+    .option.selected {
+      background: rgba(168,85,247,0.2);
+      border-color: #a855f7;
+    }
+    .option-letter {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 700; flex-shrink: 0;
+      color: var(--accent);
+    }
+
+    /* Mid ad */
+    .mid-ad {
+      margin: 8px 0 20px;
+      display: flex; justify-content: center;
+    }
+    .mid-ad-box {
+      width: 100%; max-width: 336px; height: 280px;
+      background: rgba(255,255,255,0.03);
+      border: 1px dashed rgba(255,255,255,0.1);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; color: rgba(255,255,255,0.2);
+      letter-spacing: 1px;
+    }
+
+    /* Result */
+    .result-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 36px 24px;
+      text-align: center;
+      backdrop-filter: blur(12px);
+      animation: fadeIn 0.6s ease;
+    }
+    .result-orb {
+      width: 120px; height: 120px; border-radius: 50%;
+      margin: 0 auto 24px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 48px;
+      box-shadow: 0 0 60px var(--orb-color, #a855f7), 0 0 120px rgba(168,85,247,0.3);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{box-shadow:0 0 60px var(--orb-color,#a855f7),0 0 120px rgba(168,85,247,0.3)} 50%{box-shadow:0 0 80px var(--orb-color,#a855f7),0 0 160px rgba(168,85,247,0.4)} }
+    .result-color-name {
+      font-size: clamp(28px, 7vw, 40px);
+      font-weight: 900; margin-bottom: 8px;
+    }
+    .result-subtitle {
+      font-size: 14px; color: var(--muted); margin-bottom: 20px;
+      letter-spacing: 1px;
+    }
+    .result-desc {
+      font-size: 15px; line-height: 1.8; color: var(--text);
+      margin-bottom: 24px; text-align: left;
+      background: rgba(255,255,255,0.04);
+      border-radius: 12px; padding: 16px;
+    }
+    .result-traits {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      justify-content: center; margin-bottom: 28px;
+    }
+    .trait {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 20px; padding: 6px 14px;
+      font-size: 13px; color: var(--text);
+    }
+
+    /* Buttons */
+    .btn-group { display: flex; flex-direction: column; gap: 12px; }
+    .btn {
+      width: 100%; padding: 16px;
+      border-radius: 14px; border: none; cursor: pointer;
+      font-size: 16px; font-weight: 700;
+      transition: all 0.2s ease;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #a855f7, #ec4899);
+      color: white;
+    }
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
+    .btn-secondary {
+      background: rgba(255,255,255,0.08);
+      border: 1.5px solid rgba(255,255,255,0.15);
+      color: var(--text);
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.12); }
+
+    /* Share */
+    .share-text {
+      font-size: 13px; color: var(--muted); margin-top: 16px; text-align: center;
+    }
+
+    /* Start screen */
+    .start-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 32px 24px;
+      text-align: center;
+      backdrop-filter: blur(12px);
+    }
+    .start-features {
+      display: flex; flex-direction: column; gap: 12px;
+      margin: 24px 0; text-align: left;
+    }
+    .feature-item {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 14px; color: var(--muted);
+    }
+    .feature-icon { font-size: 20px; flex-shrink: 0; }
+
+    /* Hidden */
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+  <div class="stars"></div>
+
+  <!-- Top Ad -->
+  <div class="ad-bar">
+    <div class="ad-placeholder">ADVERTISEMENT</div>
+  </div>
+
+  <div class="container">
+    <!-- Start Screen -->
+    <div id="startScreen">
+      <div class="header">
+        <span class="emoji">🔮</span>
+        <h1>你的灵魂是什么颜色？</h1>
+        <p>通过10道深度心理测试<br>揭开你灵魂深处的神秘色彩</p>
+      </div>
+      <div class="start-card">
+        <div class="start-features">
+          <div class="feature-item"><span class="feature-icon">✨</span><span>10道精心设计的心理问题</span></div>
+          <div class="feature-item"><span class="feature-icon">🎨</span><span>12种独特灵魂颜色结果</span></div>
+          <div class="feature-item"><span class="feature-icon">🔬</span><span>深度解析你的性格特质</span></div>
+          <div class="feature-item"><span class="feature-icon">⏱️</span><span>仅需2分钟，结果精准有趣</span></div>
+        </div>
+        <button class="btn btn-primary" onclick="startTest()">开始测试 →</button>
+      </div>
+    </div>
+
+    <!-- Quiz Screen -->
+    <div id="quizScreen" class="hidden">
+      <div class="header" style="padding-top:24px">
+        <span class="emoji" style="font-size:36px">🔮</span>
+        <h1 style="font-size:22px">灵魂颜色测试</h1>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-info">
+          <span id="progressText">第 1 题 / 共 10 题</span>
+          <span id="progressPct">0%</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+      </div>
+      <div class="question-card" id="questionCard">
+        <div class="question-num" id="questionNum">QUESTION 01</div>
+        <div class="question-text" id="questionText"></div>
+        <div class="options" id="optionsContainer"></div>
+      </div>
+      <!-- Mid ad (shows at Q5) -->
+      <div class="mid-ad hidden" id="midAd">
+        <div class="mid-ad-box">ADVERTISEMENT</div>
+      </div>
+    </div>
+
+    <!-- Result Screen -->
+    <div id="resultScreen" class="hidden">
+      <div class="header" style="padding-top:24px">
+        <span class="emoji" style="font-size:36px">✨</span>
+        <h1 style="font-size:22px">测试结果</h1>
+      </div>
+      <div class="result-card">
+        <div class="result-orb" id="resultOrb"></div>
+        <div class="result-color-name" id="resultColorName"></div>
+        <div class="result-subtitle" id="resultSubtitle"></div>
+        <div class="result-desc" id="resultDesc"></div>
+        <div class="result-traits" id="resultTraits"></div>
+        <div class="btn-group">
+          <button class="btn btn-primary" onclick="shareResult()">分享我的灵魂颜色 🌟</button>
+          <button class="btn btn-secondary" onclick="restartTest()">再测一次</button>
+        </div>
+        <p class="share-text">已有 <strong id="shareCount">128,493</strong> 人完成测试</p>
+      </div>
+      <!-- Result ad -->
+      <div class="mid-ad" style="margin-top:20px">
+        <div class="mid-ad-box">ADVERTISEMENT</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Ad -->
+  <div class="ad-bar bottom">
+    <div class="ad-placeholder">ADVERTISEMENT</div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        text: "清晨醒来，你最先想到的是什么？",
+        options: [
+          { text: "今天有哪些事情需要完成", colors: { red: 2, orange: 1 } },
+          { text: "昨晚做的梦，还在脑海中回荡", colors: { indigo: 2, violet: 1 } },
+          { text: "窗外的阳光，今天天气真好", colors: { yellow: 2, gold: 1 } },
+          { text: "还想再睡一会儿，世界可以等我", colors: { blue: 2, silver: 1 } }
+        ]
+      },
+      {
+        text: "如果你的人生是一部电影，它会是什么类型？",
+        options: [
+          { text: "史诗冒险片——充满挑战与征服", colors: { red: 2, orange: 1 } },
+          { text: "文艺爱情片——细腻、深情、唯美", colors: { pink: 2, violet: 1 } },
+          { text: "悬疑推理片——层层解谜，真相只有一个", colors: { indigo: 2, black: 1 } },
+          { text: "治愈系纪录片——平静、真实、温暖", colors: { green: 2, blue: 1 } }
+        ]
+      },
+      {
+        text: "在一个陌生的派对上，你通常会？",
+        options: [
+          { text: "成为全场焦点，和所有人打成一片", colors: { orange: 2, red: 1 } },
+          { text: "找到一两个有趣的人深聊", colors: { indigo: 2, blue: 1 } },
+          { text: "安静地观察，享受人群中的孤独感", colors: { black: 2, violet: 1 } },
+          { text: "帮忙张罗，确保每个人都玩得开心", colors: { green: 2, gold: 1 } }
+        ]
+      },
+      {
+        text: "面对一个重要决定，你更倾向于？",
+        options: [
+          { text: "相信直觉，跟着感觉走", colors: { violet: 2, pink: 1 } },
+          { text: "收集所有信息，理性分析利弊", colors: { indigo: 2, silver: 1 } },
+          { text: "听听身边人的意见，再做决定", colors: { green: 2, blue: 1 } },
+          { text: "快速决断，行动比思考更重要", colors: { red: 2, orange: 1 } }
+        ]
+      },
+      {
+        text: "你最害怕的事情是什么？",
+        options: [
+          { text: "失去自由，被束缚在一个地方", colors: { orange: 2, red: 1 } },
+          { text: "被人误解，无法表达真实的自己", colors: { violet: 2, indigo: 1 } },
+          { text: "孤独终老，没有人真正懂你", colors: { pink: 2, blue: 1 } },
+          { text: "碌碌无为，没有留下任何痕迹", colors: { gold: 2, yellow: 1 } }
+        ]
+      },
+      {
+        text: "如果你能拥有一种超能力，你会选择？",
+        options: [
+          { text: "读心术——了解每个人内心的真实想法", colors: { indigo: 2, violet: 1 } },
+          { text: "时间控制——暂停、倒带或快进时间", colors: { silver: 2, blue: 1 } },
+          { text: "治愈能力——治愈所有人的身心创伤", colors: { green: 2, pink: 1 } },
+          { text: "无限创造——将任何想象变为现实", colors: { gold: 2, yellow: 1 } }
+        ]
+      },
+      {
+        text: "深夜，你一个人在家，你会做什么？",
+        options: [
+          { text: "刷剧、打游戏，享受放松时光", colors: { blue: 2, orange: 1 } },
+          { text: "写日记、画画或创作一些东西", colors: { violet: 2, indigo: 1 } },
+          { text: "思考人生，脑子停不下来", colors: { black: 2, silver: 1 } },
+          { text: "给朋友发消息，聊聊最近的生活", colors: { pink: 2, green: 1 } }
+        ]
+      },
+      {
+        text: "你认为爱情最重要的是什么？",
+        options: [
+          { text: "激情与火花，让彼此心跳加速", colors: { red: 2, pink: 1 } },
+          { text: "灵魂契合，能理解彼此的沉默", colors: { indigo: 2, violet: 1 } },
+          { text: "陪伴与安全感，平淡中见真情", colors: { blue: 2, green: 1 } },
+          { text: "共同成长，一起变成更好的人", colors: { gold: 2, yellow: 1 } }
+        ]
+      },
+      {
+        text: "你最喜欢哪种自然景观？",
+        options: [
+          { text: "火山与熔岩——原始的力量之美", colors: { red: 2, orange: 1 } },
+          { text: "深海与星空——无边的神秘与深邃", colors: { indigo: 2, black: 1 } },
+          { text: "森林与草原——生命的蓬勃与宁静", colors: { green: 2, blue: 1 } },
+          { text: "极光与彩虹——绚烂的色彩与奇迹", colors: { violet: 2, gold: 1 } }
+        ]
+      },
+      {
+        text: "如果用一句话描述你的人生哲学，你会选择？",
+        options: [
+          { text: "活在当下，燃烧每一刻", colors: { red: 2, orange: 1 } },
+          { text: "探索未知，永远保持好奇", colors: { indigo: 2, violet: 1 } },
+          { text: "温柔待人，善意改变世界", colors: { green: 2, pink: 1 } },
+          { text: "沉淀自我，成为时间的朋友", colors: { silver: 2, blue: 1 } }
+        ]
+      }
+    ];
+
+    const colorResults = {
+      red: {
+        name: "烈焰红", emoji: "🔴",
+        subtitle: "激情 · 力量 · 领袖",
+        bg: "linear-gradient(135deg, #dc2626, #ef4444)",
+        orbColor: "#ef4444",
+        desc: "你的灵魂燃烧着炽热的火焰。你天生具有领袖气质，充满激情与行动力。你不惧挑战，甚至享受压力带来的肾上腺素。你的存在本身就是一种能量，能点燃周围人的热情。你活得真实、直接，从不掩饰自己的欲望与野心。",
+        traits: ["领袖力", "行动派", "激情四射", "直率坦诚", "不惧挑战"]
+      },
+      orange: {
+        name: "暖阳橙", emoji: "🟠",
+        subtitle: "活力 · 创意 · 自由",
+        bg: "linear-gradient(135deg, #ea580c, #f97316)",
+        orbColor: "#f97316",
+        desc: "你的灵魂像午后的阳光，温暖而充满活力。你是天生的乐观主义者，总能在困境中找到希望。你热爱自由，讨厌被束缚，创意是你最大的武器。你的笑声有感染力，你的存在让周围的世界更明亮。",
+        traits: ["乐观主义", "创意无限", "热爱自由", "感染力强", "适应力强"]
+      },
+      yellow: {
+        name: "晨曦黄", emoji: "🟡",
+        subtitle: "智慧 · 好奇 · 阳光",
+        bg: "linear-gradient(135deg, #ca8a04, #eab308)",
+        orbColor: "#eab308",
+        desc: "你的灵魂像清晨第一缕阳光，明亮而充满智慧。你对世界充满好奇，学习新事物是你最大的乐趣。你思维敏捷，善于发现别人忽视的细节。你的乐观不是盲目的，而是建立在对生活深刻理解之上的。",
+        traits: ["求知欲强", "思维敏捷", "乐观开朗", "善于观察", "幽默风趣"]
+      },
+      green: {
+        name: "翡翠绿", emoji: "💚",
+        subtitle: "治愈 · 平衡 · 成长",
+        bg: "linear-gradient(135deg, #16a34a, #22c55e)",
+        orbColor: "#22c55e",
+        desc: "你的灵魂如同茂密的森林，充满生命力与治愈能量。你天生具有同理心，能感受到他人的情绪，是朋友圈里的情感支柱。你追求内心的平衡与和谐，相信万物皆有其节奏。你的存在让人感到安心与踏实。",
+        traits: ["高度共情", "治愈系", "追求平衡", "可靠稳定", "热爱自然"]
+      },
+      blue: {
+        name: "深海蓝", emoji: "💙",
+        subtitle: "沉静 · 忠诚 · 深邃",
+        bg: "linear-gradient(135deg, #1d4ed8, #3b82f6)",
+        orbColor: "#3b82f6",
+        desc: "你的灵魂如同深邃的大海，平静的表面下藏着无尽的深度。你是一个忠诚、可靠的人，一旦认定就会全力以赴。你不轻易表露情感，但内心世界极为丰富。你的沉稳给人安全感，你的智慧让人信服。",
+        traits: ["忠诚可靠", "沉稳内敛", "深度思考", "情感丰富", "值得信赖"]
+      },
+      indigo: {
+        name: "星夜靛", emoji: "🔵",
+        subtitle: "直觉 · 神秘 · 洞察",
+        bg: "linear-gradient(135deg, #4338ca, #6366f1)",
+        orbColor: "#6366f1",
+        desc: "你的灵魂拥有超越常人的直觉与洞察力。你能感知到他人感知不到的事物，对人性有着深刻的理解。你喜欢探索意识的边界，对神秘事物充满兴趣。你的内心世界比外表展示的要复杂得多，只有真正了解你的人才能看见你的全貌。",
+        traits: ["直觉敏锐", "洞察人心", "神秘气质", "哲学思维", "内在智慧"]
+      },
+      violet: {
+        name: "幻梦紫", emoji: "💜",
+        subtitle: "创造 · 灵性 · 独特",
+        bg: "linear-gradient(135deg, #7c3aed, #a855f7)",
+        orbColor: "#a855f7",
+        desc: "你的灵魂是最稀有的颜色——紫色，代表着创造力与灵性的完美融合。你是一个真正的艺术家，无论是否拿着画笔。你的思维方式与众不同，总能从独特的角度看待世界。你对美有着极高的敏感度，你的存在本身就是一件艺术品。",
+        traits: ["创造力爆棚", "灵性感知", "独特视角", "审美极高", "天生艺术家"]
+      },
+      pink: {
+        name: "樱花粉", emoji: "🩷",
+        subtitle: "爱 · 温柔 · 浪漫",
+        bg: "linear-gradient(135deg, #be185d, #ec4899)",
+        orbColor: "#ec4899",
+        desc: "你的灵魂充满了爱与温柔。你是一个浪漫主义者，相信爱的力量可以改变一切。你对身边的人充满关怀，总是把别人的感受放在第一位。你的温柔不是软弱，而是一种强大的力量——能融化最坚硬的心。",
+        traits: ["充满爱心", "温柔体贴", "浪漫主义", "善解人意", "情感细腻"]
+      },
+      gold: {
+        name: "荣耀金", emoji: "✨",
+        subtitle: "成就 · 智慧 · 光芒",
+        bg: "linear-gradient(135deg, #b45309, #f59e0b)",
+        orbColor: "#f59e0b",
+        desc: "你的灵魂散发着金色的光芒，代表着智慧与成就。你有着强烈的使命感，相信自己来到这个世界是有目的的。你追求卓越，不满足于平庸。你的存在激励着周围的人，你的成功不是偶然，而是内在力量的自然显现。",
+        traits: ["使命感强", "追求卓越", "激励他人", "内在力量", "天生领袖"]
+      },
+      silver: {
+        name: "月华银", emoji: "🩶",
+        subtitle: "理性 · 优雅 · 超然",
+        bg: "linear-gradient(135deg, #475569, #94a3b8)",
+        orbColor: "#94a3b8",
+        desc: "你的灵魂如同月光，清冷而优雅。你是一个理性主义者，用逻辑和分析来理解这个世界。你不被情绪左右，能在混乱中保持清醒。你有着超然的气质，不随波逐流，总能看清事物的本质。你的智慧是沉默的，但力量是巨大的。",
+        traits: ["理性冷静", "逻辑清晰", "超然气质", "洞察本质", "独立自主"]
+      },
+      black: {
+        name: "深渊黑", emoji: "🖤",
+        subtitle: "深度 · 神秘 · 力量",
+        bg: "linear-gradient(135deg, #1e1b4b, #312e81)",
+        orbColor: "#818cf8",
+        desc: "你的灵魂拥有最深邃的颜色——黑色，代表着无限的深度与神秘的力量。你是一个复杂而多面的人，外表平静，内心却有着汹涌的思想。你对世界有着独到的见解，不惧怕黑暗，因为你知道黑暗中才能看见星光。你的存在充满了未解之谜。",
+        traits: ["深度思考", "神秘气质", "内心强大", "独特见解", "不惧黑暗"]
+      },
+      white: {
+        name: "纯净白", emoji: "🤍",
+        subtitle: "纯粹 · 真实 · 无限",
+        bg: "linear-gradient(135deg, #6b7280, #d1d5db)",
+        orbColor: "#e5e7eb",
+        desc: "你的灵魂是最纯粹的颜色——白色，包含了所有颜色的可能性。你是一个真实、纯粹的人，不戴面具，不演戏。你对生活有着孩子般的好奇与热情，相信世界本质上是美好的。你的纯粹是一种稀有的品质，在这个复杂的世界里显得格外珍贵。",
+        traits: ["纯粹真实", "开放包容", "好奇心强", "无限可能", "内心纯净"]
+      }
+    };
+
+    let currentQ = 0;
+    let scores = {};
+    let shareCount = 128493 + Math.floor(Math.random() * 500);
+
+    function startTest() {
+      document.getElementById('startScreen').classList.add('hidden');
+      document.getElementById('quizScreen').classList.remove('hidden');
+      showQuestion(0);
+    }
+
+    function showQuestion(idx) {
+      const q = questions[idx];
+      document.getElementById('questionNum').textContent = 'QUESTION ' + String(idx + 1).padStart(2, '0');
+      document.getElementById('questionText').textContent = q.text;
+      document.getElementById('progressText').textContent = `第 ${idx + 1} 题 / 共 ${questions.length} 题`;
+      const pct = Math.round((idx / questions.length) * 100);
+      document.getElementById('progressPct').textContent = pct + '%';
+      document.getElementById('progressFill').style.width = pct + '%';
+
+      const container = document.getElementById('optionsContainer');
+      container.innerHTML = '';
+      const letters = ['A', 'B', 'C', 'D'];
+      q.options.forEach((opt, i) => {
+        const div = document.createElement('div');
+        div.className = 'option';
+        div.innerHTML = `<span class="option-letter">${letters[i]}</span><span>${opt.text}</span>`;
+        div.onclick = () => selectOption(opt, div);
+        container.appendChild(div);
+      });
+
+      // Show mid ad at Q5
+      const midAd = document.getElementById('midAd');
+      if (idx === 4) {
+        midAd.classList.remove('hidden');
+      } else {
+        midAd.classList.add('hidden');
+      }
+
+      document.getElementById('questionCard').style.animation = 'none';
+      requestAnimationFrame(() => {
+        document.getElementById('questionCard').style.animation = 'fadeIn 0.4s ease';
+      });
+    }
+
+    function selectOption(opt, el) {
+      // Add scores
+      for (const [color, pts] of Object.entries(opt.colors)) {
+        scores[color] = (scores[color] || 0) + pts;
+      }
+      el.classList.add('selected');
+      setTimeout(() => {
+        currentQ++;
+        if (currentQ < questions.length) {
+          showQuestion(currentQ);
+        } else {
+          showResult();
+        }
+      }, 300);
+    }
+
+    function showResult() {
+      document.getElementById('quizScreen').classList.add('hidden');
+      document.getElementById('resultScreen').classList.remove('hidden');
+
+      // Find top color
+      let topColor = 'violet';
+      let topScore = 0;
+      for (const [color, score] of Object.entries(scores)) {
+        if (score > topScore) { topScore = score; topColor = color; }
+      }
+
+      const result = colorResults[topColor];
+      const orb = document.getElementById('resultOrb');
+      orb.style.background = result.bg;
+      orb.style.setProperty('--orb-color', result.orbColor);
+      orb.textContent = result.emoji;
+
+      document.getElementById('resultColorName').textContent = result.name;
+      document.getElementById('resultColorName').style.background = result.bg;
+      document.getElementById('resultColorName').style.webkitBackgroundClip = 'text';
+      document.getElementById('resultColorName').style.webkitTextFillColor = 'transparent';
+      document.getElementById('resultColorName').style.backgroundClip = 'text';
+
+      document.getElementById('resultSubtitle').textContent = result.subtitle;
+      document.getElementById('resultDesc').textContent = result.desc;
+
+      const traitsEl = document.getElementById('resultTraits');
+      traitsEl.innerHTML = result.traits.map(t => `<span class="trait">${t}</span>`).join('');
+
+      document.getElementById('shareCount').textContent = shareCount.toLocaleString();
+    }
+
+    function shareResult() {
+      const colorName = document.getElementById('resultColorName').textContent;
+      const text = '我的灵魂颜色是「' + colorName + '」✨ 快来测测你的灵魂颜色！\nhttps://soulcolor.online';
+      
+      // 优先尝试微信内置浏览器分享
+      if (typeof WeixinJSBridge !== 'undefined' && WeixinJSBridge.invoke) {
+        WeixinJSBridge.invoke('shareMessage', {
+          title: '灵魂颜色测试',
+          desc: text,
+          link: 'https://soulcolor.online',
+          imgUrl: 'https://soulcolor.online/og.png'
+        });
+        return;
+      }
+      
+      // 尝试 Web Share API（iOS Safari 等）
+      if (navigator.share) {
+        navigator.share({ title: '灵魂颜色测试', text: text, url: 'https://soulcolor.online' })
+          .catch(function() { fallbackCopy(text); });
+        return;
+      }
+      
+      // 降级：复制到剪贴板
+      fallbackCopy(text);
+    }
+
+    function fallbackCopy(text) {
+      // textarea 方式，兼容性最好（微信/安卓/iOS均可）
+      var ta = document.createElement('textarea');
+      ta.style.cssText = 'position:fixed;top:-9999px;left:-9999px;opacity:0;';
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      try {
+        document.execCommand('copy');
+        showShareToast();
+      } catch (e) {
+        // 兜底：尝试 clipboard API
+        if (navigator.clipboard && window.isSecureContext) {
+          navigator.clipboard.writeText(text).then(function() {
+            showShareToast();
+          }).catch(function() {
+            showShareFail();
+          });
+        } else {
+          showShareFail();
+        }
+      }
+      document.body.removeChild(ta);
+    }
+
+    function showShareToast() {
+      var toast = document.getElementById('shareToast');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'shareToast';
+        toast.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,0.85);color:#fff;padding:16px 32px;border-radius:12px;font-size:15px;z-index:99999;transition:opacity 0.3s;';
+        document.body.appendChild(toast);
+      }
+      toast.textContent = '✅ 已复制链接，快去粘贴分享吧！';
+      toast.style.opacity = '1';
+      clearTimeout(window._shareToastTimer);
+      window._shareToastTimer = setTimeout(function() {
+        toast.style.opacity = '0';
+        setTimeout(function() { toast.style.display = 'none'; }, 300);
+      }, 2500);
+    }
+
+    function showShareFail() {
+      var toast = document.getElementById('shareToast');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'shareToast';
+        document.body.appendChild(toast);
+      }
+      toast.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,0.85);color:#fff;padding:16px 32px;border-radius:12px;font-size:15px;z-index:99999;';
+      toast.textContent = '长按复制：https://soulcolor.online';
+      toast.style.opacity = '1';
+    }
+
+    function restartTest() {
+      currentQ = 0; scores = {};
+      document.getElementById('resultScreen').classList.add('hidden');
+      document.getElementById('startScreen').classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>
